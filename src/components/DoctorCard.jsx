@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button, Badge } from 'react-bootstrap';
 
-function DoctorCard({ doctor, onSelect, isSelected }) {
+function DoctorCard({ doctor, onSelect, isSelected, children }) {
   return (
     <Card className={`h-100 shadow-sm border-0 rounded-4 text-center overflow-hidden ${isSelected ? 'border border-success border-2' : ''}`}>
       <Card.Img 
@@ -14,15 +14,18 @@ function DoctorCard({ doctor, onSelect, isSelected }) {
         <Card.Title className="fw-bold mb-2 text-dark">{doctor.name}</Card.Title>
         <Card.Subtitle className="mb-3 text-success">{doctor.specialty}</Card.Subtitle>
         
-        <Card.Text className="text-muted flex-grow-1">
+        <Card.Text className="text-muted flex-grow-1 mb-2">
           Стаж: <strong>{doctor.experience} років</strong><br/>
           Вартість: <strong>{doctor.price} грн.</strong>
         </Card.Text>
 
-        <div style={{ minHeight: '30px' }} className="mb-2">
+        {/* ТУТ БУДЕ ВИВОДИТИСЯ НАШ ВИПАДАЮЧИЙ СПИСОК ПОСЛУГ */}
+        {children}
+
+        <div style={{ minHeight: '30px' }} className="mb-3 mt-2">
           {isSelected && (
             <Badge bg="success" className="px-3 py-2 rounded-pill">
-              ✔ Записано
+              ✔ Вибрано для запису
             </Badge>
           )}
         </div>
@@ -33,7 +36,7 @@ function DoctorCard({ doctor, onSelect, isSelected }) {
           onClick={() => onSelect(doctor)}
           disabled={isSelected}
         >
-          {isSelected ? "Ви вже записані" : "Записатися на прийом"}
+          {isSelected ? "Вже записані" : "Записатися на прийом"}
         </Button>
       </Card.Body>
     </Card>
